@@ -18,3 +18,18 @@ class Player:
 
     def add_score(self, int):
         self.score += int
+
+    def ok_choice_take_card(self):
+        return len(self.hand_str) < 5
+
+    def ok_choice_trade(self):
+        return (len(self.hand_str) + self.nb_camel) > 1
+
+    def ok_choice_sell(self):
+        return len(self.hand_str) > 0
+
+    def take_card(self, card):
+        self.hand_str.append(card)
+
+    def take_camels(self, nb):
+        self.nb_camel += nb
