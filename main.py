@@ -4,17 +4,19 @@ from card import *
 
 ressources = {"rubis": [], "or": [], "argent": [], "épices": [], "cuir": []}
 board = []
+deck = []
+
+
 def remove_values_from_list(the_list, val):
-   return [value for value in the_list if value != val]{value for value in variable}
+    return [value for value in the_list if value != val]
 
-def take_camels(player, board):
-    nb_camels_on_board = board.count("chameau")
-    player.take_camels(nb_camels_on_board)
-    board = remove_values_from_list(board, "chameau")
-    return board
+def remove_el(list, el):
+    f
 
-def trade_1(player, board):
+def trade_1(player):
     ok_pre_trade = False
+    nb_camels_trade = 0
+    nb_cards_trade = 0
     while not ok_pre_trade:
         ok_camels = False
         while not ok_camels:
@@ -36,13 +38,15 @@ def trade_1(player, board):
         else:
             print("Les données de l'échange ne sont pas valides")
     ok_choice_cards = False
+    chosen_cards = []
     while not ok_choice_cards:
         chosen_cards = []
         possible_choices = player.hand_str
-        for i in range(0,nb_cards_trade):
+        for i in range(0, nb_cards_trade):
             print(f'Choix possibles : {possible_choices}')
             print(f'Cartes déjà choisies : {chosen_cards}')
             ok_choice_c = False
+            choice = ''
             while not ok_choice_c:
                 choice = input("Choisissez une carte")
                 ok_choice_c = (choice in possible_choices)
@@ -52,7 +56,8 @@ def trade_1(player, board):
         player.hand_str = possible_choices
     return chosen_cards
 
-def trade_2(board, nb_cards):
+
+def trade_2(nb_cards):
     possible_choices = board
     remove_values_from_list(possible_choices, "chameau")
     chosen_cards = []
@@ -65,17 +70,27 @@ def trade_2(board, nb_cards):
             ok_choice = (choice in possible_choices)
         possible_choices.remove(choice)
         chosen_cards.append(choice)
-    for c in ch
+    for c in chosen_cards:
+        board.remove(c)
+    return chosen_cards
 
 
-def take_card(player, board):
+def take_camels(player):
+    nb_camels_on_board = board.count("chameau")
+    player.take_camels(nb_camels_on_board)
+    remove_values_from_list(board, "chameau")
+    return board
+
+
+def take_card(player):
     valid_choice = False
+    choice = ""
     while not valid_choice:
-        print("Quelle carte prendre ?")
-        for i in range(0, len(board)):
-            print(f'{i} : {board[i]}')
-        choice = int(input())
-        valid_choice = (0 >= choice < len(board))
+        print(board)
+        choice = input("Quelle carte prendre ?")
+        valid_choice = (choice in board)
+    board.remove(choice)
+    player.take_card(choice)
 
 
 def buy_ressource(dict_ressources, ressource, nb, player):
@@ -88,6 +103,13 @@ def buy_ressource(dict_ressources, ressource, nb, player):
     else:
         print("Achat impossible")
     return dict_ressources
+
+
+def end_turn():
+    if len(board) < 5:
+        for i in range(0, 5-len(board)):
+            card = deck.pop()
+            board.append(card)
 
 
 def turn(player):
