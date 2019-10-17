@@ -1,17 +1,22 @@
 from player import *
 from card import *
-
+import random
 
 ressources = {"rubis": [], "or": [], "argent": [], "épices": [], "cuir": []}
+bonus = {"3":[], "4":[], "5":[]}
 board = []
 deck = []
+
+def shuffle_deck():
+    random.shuffle(deck)
 
 
 def remove_values_from_list(the_list, val):
     return [value for value in the_list if value != val]
 
 def remove_el(list, el):
-    f
+    for i in range(0, len(list)):
+        list.remove(el)
 
 def trade_1(player):
     ok_pre_trade = False
@@ -121,8 +126,10 @@ def turn(player):
             choice = input('faites votre choix parmi les options autorisées')
             success_choice = (choice in possible_input)
 
+def end_game()
 
-name1 = input("Nom du joueur 1")
-name2 = input("Nom du joueur 2")
-joueur1 = Player(name1)
-joueur2 = Player(name2)
+def new_game():
+    name1 = input("Nom du joueur 1")
+    name2 = input("Nom du joueur 2")
+    joueur1 = Player(name1)
+    joueur2 = Player(name2)
