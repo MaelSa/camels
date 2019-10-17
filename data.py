@@ -1,0 +1,11 @@
+ressources = {"diamants": [], "or": [], "argent": [], "tissus": [], "épices": [], "cuir": []}
+bonus = {1: [], 2: [], 3: [], 4: [], 5: []}
+diamonds = ["diamants" for i in range(6)]
+gold = ["or" for i in range(6)]
+silver = ["silver" for i in range(6)]
+tissus = ["tissus" for i in range(8)]
+epices = ["épices" for i in range(8)]
+cuir = ['cuir' for i in range(10)]
+camels = ['chameau' for i in range(11)]
+board = []
+deck = diamonds + gold + silver + tissus + epices + cuir + camels

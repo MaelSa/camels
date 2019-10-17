@@ -28,6 +28,7 @@ class Player:
     def ok_choice_sell(self):
         return len(self.hand_str) > 0
 
+
     def take_card(self, card):
         self.hand_str.append(card)
 

@@ -2,10 +2,8 @@ from player import *
 from card import *
 import random
 
-ressources = {"rubis": [], "or": [], "argent": [], "épices": [], "cuir": []}
-bonus = {"3":[], "4":[], "5":[]}
-board = []
-deck = []
+from data import *
+
 
 def shuffle_deck():
     random.shuffle(deck)
@@ -14,9 +12,11 @@ def shuffle_deck():
 def remove_values_from_list(the_list, val):
     return [value for value in the_list if value != val]
 
+
 def remove_el(list, el):
     for i in range(0, len(list)):
         list.remove(el)
+
 
 def trade_1(player):
     ok_pre_trade = False
@@ -66,7 +66,7 @@ def trade_2(nb_cards):
     possible_choices = board
     remove_values_from_list(possible_choices, "chameau")
     chosen_cards = []
-    for i in range(0,nb_cards):
+    for i in range(0, nb_cards):
         ok_choice = False
         while not ok_choice:
             print(f'Choix possibles {possible_choices}')
@@ -98,16 +98,17 @@ def take_card(player):
     player.take_card(choice)
 
 
-def buy_ressource(dict_ressources, ressource, nb, player):
+def buy_ressource(ressource, nb, player):
     if player.buy(ressource, nb):
-        count = min(nb, len(dict_ressources[ressource]))
+        count = min(nb, len(ressources[ressource]))
         for i in range(0, count):
-            s = dict_ressources[ressource].pop()
+            s = ressources[ressource].pop()
             player.add_score(s)
+        if len(bonus[count]) >= 1:
+            player.add_score(bonus[count].pop())
         print("Achat effectué")
     else:
         print("Achat impossible")
-    return dict_ressources
 
 
 def end_turn():
@@ -118,15 +119,29 @@ def end_turn():
 
 
 def turn(player):
-    possible_input = ('prendre', 'échanger', 'acheter', 'chameaux')
+    possible_input = ('prendre', 'échanger', 'vendre', 'chameaux')
     success_turn = False
     success_choice = False
     while not success_turn:
         while not success_choice:
             choice = input('faites votre choix parmi les options autorisées')
-            success_choice = (choice in possible_input)
+            if choice == "prendre":
+                success_choice = player.ok_choice_take_card()
+            elif choice == 'échanger':
+                success_choice = player.ok_choice_trade()
+            elif choice == 'vendre':
+                success_choice = player.ok_choice_sell()
+            elif choice == 'chameaux':
+                success_choice = board.count('chameau') > 0
 
-def end_game()
+
+def end_game():
+    c = 0
+    for key, value in ressources.items():
+        if len(value) == 0:
+            c += 1
+    return c >= 3 or len(deck) == 0
+
 
 def new_game():
     name1 = input("Nom du joueur 1")
