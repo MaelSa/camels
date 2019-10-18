@@ -28,9 +28,19 @@ class Player:
     def ok_choice_sell(self):
         return len(self.hand_str) > 0
 
+    def show_hand(self):
+        strn = ''
+        for c in self.hand_str:
+            strn += c + ', '
+        print(f'Votre main est {strn}')
+
+
 
     def take_card(self, card):
         self.hand_str.append(card)
 
     def take_camels(self, nb):
         self.nb_camel += nb
+
+    def add_hand(self, card):
+        self.hand_str.append(card)
