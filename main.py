@@ -1,9 +1,16 @@
 from player import *
 from card import *
 import random
-
+import socket
 from data import *
 
+
+conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+conn.bind(('', 5000))
+conn.listen(5)
+
+client1, adress1 = conn.accept()
+client2, adress2 = conn.accept()
 
 def shuffle_deck():
     random.shuffle(deck)
