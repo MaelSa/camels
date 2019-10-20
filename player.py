@@ -1,5 +1,5 @@
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, socket, oponnent_socket):
         self.name = name
         self.nb_camel = 0
         self.hand = []
@@ -7,9 +7,12 @@ class Player:
         self.score = 0
         self.bonus = []
         self.bonus_int = 0
+        self.socket = socket
+        self.oponent_socket = oponnent_socket
 
     def buy(self, ressource, nb):
-        if self.hand_str.count(ressource) >= nb:
+        cpt = int(self.hand_str.count(ressource))
+        if cpt >= nb:
             for i in range(0, nb):
                 self.hand_str.remove(ressource)
             return True
@@ -32,7 +35,7 @@ class Player:
         strn = ''
         for c in self.hand_str:
             strn += c + ', '
-        print(f'Votre main est {strn}')
+        return (f'Votre main est {strn}')
 
 
 
