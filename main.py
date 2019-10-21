@@ -1,3 +1,4 @@
+# coding=utf-8
 from player import *
 from card import *
 import random
@@ -6,7 +7,7 @@ from data import *
 
 
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-conn.bind(('', 5000))
+conn.bind(('', 8000))
 conn.listen(5)
 
 client1, adress1 = conn.accept()
@@ -39,7 +40,7 @@ def trade_1(player):
     while not ok_pre_trade:
         ok_camels = False
         while not ok_camels:
-            nb_camels_trade = player.socket.recv(255).decode()
+            nb_camels_trade = player.socket.recv(2048).decode()
             if 0 <= nb_camels_trade <= min(player.nb_camel, 5-len(player.hand_str)):
                 ok_camels = True
                 player.socket.send('true'.encode())
@@ -48,7 +49,7 @@ def trade_1(player):
                 player.socket.send('false'.encode())
         ok_cards = False
         while not ok_cards:
-            nb_cards_trade = player.socket.recv(255).decode()
+            nb_cards_trade = player.socket.recv(2048).decode()
             if 0<= nb_cards_trade <= len(player.hand_str):
                 ok_cards = True
                 player.socket.send('true'.encode())
@@ -74,7 +75,7 @@ def trade_1(player):
             choice = ''
             while not ok_choice_c:
                 player.socket.send('Choix ?'.encode())
-                choice = player.socket.recv(255).decode()
+                choice = player.socket.recv(2048).decode()
                 ok_choice_c = (choice in possible_choices)
                 if ok_choice_c:
                     player.socket.send('true'.encode())
@@ -132,7 +133,7 @@ def take_card(player):
     choice = ""
     while not valid_choice:
         show_board()
-        choice = player.socket.recv(255).encode
+        choice = player.socket.recv(2048).encode
         valid_choice = (choice in board)
         if valid_choice:
             player.socket.send('true'.encode())
@@ -145,8 +146,8 @@ def take_card(player):
 def buy_ressource_1(player):
     ok_buy = False
     while not ok_buy:
-        res = player.socket.recv(255).decode
-        c = int(player.socket.recv(255).decode)
+        res = player.socket.recv(2048).decode
+        c = int(player.socket.recv(2048).decode)
         ok_buy = buy_ressource_2(res, c, player)
         if ok_buy:
             player.socket.send('true'.encode())
@@ -207,7 +208,7 @@ def turn(player):
     success_choice = False
     while not success_choice:
         print('Choix possibles : prendre, échannger, vendre ou chameaux')
-        choice = player.socket.recv(255).decode()
+        choice = player.socket.recv(2048).decode()
         if choice == "prendre":
             success_choice = player.ok_choice_take_card()
         elif choice == 'échanger':
@@ -261,8 +262,10 @@ def setup_game():
 
 
 def new_game():
-    name1 = client1.recv(255).decode()
-    name2 = client2.recv(255).decode()
+    name1 = client1.recv(2048).decode()
+    print(f'Premier joueur : {name1} \n')
+    name2 = client2.recv(2048).decode()
+    print(f'Second joueur : {name2} \n')
     joueur1 = Player(name1, client1, client2)
     joueur2 = Player(name2, client2, client1)
     setup_game()
@@ -272,32 +275,49 @@ def new_game():
     h1 = joueur1.show_hand()
     h2 = joueur2.show_hand()
     joueur1.socket.send(b.encode())
+    joueur1.socket.recv(2048)
     joueur2.socket.send(b.encode())
+    joueur2.socket.recv(2048)
+    print('On a envoyé le board aux deux joueurs \n')
     joueur1.socket.send(h1.encode())
+    joueur1.socket.recv(2048)
+    print('main j1 envoyée')
     joueur2.socket.send(h2.encode())
+    joueur2.socket.recv(2048)
+    print('main j2 envoyée')
+    print('On a envoyé leurs mains aux deux joueurs \n')
     while not end_game():
         b = show_board()
         r = show_ressources()
         s = 'votre'
         d = 'nv'
         client1.send(s.encode())
+        client1.recv(2048)
         client2.send(d.encode())
         client1.send(b.encode())
+        print('On a tout envoyé 1')
         client1.send(r.encode())
         client2.send(b.encode())
         client2.send(r.encode())
+        print('On a tout envoyé 2')
+        print("Début tour j1")
         turn(joueur1)
         f = 'fin'
         client2.send(f.encode())
+        print('Envoyé signal de fin de tour à J2')
         fill_board()
+
         client1.send(d.encode())
         client2.send(s.encode())
         client1.send(b.encode())
         client1.send(r.encode())
         client2.send(b.encode())
         client2.send(r.encode())
+        print('Données toutes envoyées')
+        print('Début tour j2')
         turn(joueur2)
         client1.send(f.encode())
+        print('Signal de fin envoyé à j1')
         fill_board()
 
 new_game()
