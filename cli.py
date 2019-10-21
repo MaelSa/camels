@@ -5,48 +5,57 @@ connexion_avec_serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connexion_avec_serveur.connect((hote, port))
 print("connecté")
 
+def new_recv():
+    msg = connexion_avec_serveur.recv(2048).decode()
+    connexion_avec_serveur.send(msg.encode())
+    return msg
+
+
+def new_send(msg):
+    connexion_avec_serveur.send(msg.encode())
+    connexion_avec_serveur.recv(2048)
+
+
 
 end = False
 name = input("Quel est votre nom ?:\n")
-connexion_avec_serveur.send(name.encode())
+new_send(name)
 print('Nom envoyé, on attend le board')
-board = connexion_avec_serveur.recv(2048).decode()
-connexion_avec_serveur.send(board.encode())
+board = new_recv()
 print(board)
 print('board reçu, on attend la main')
-hand = connexion_avec_serveur.recv(2048).decode()
-connexion_avec_serveur.send(hand.encode())
+hand = new_recv()
 print(f'Votre main est : {hand} \n')
 while not end:
-    tour = connexion_avec_serveur.recv(2048).decode()
+    tour = new_recv()
     print(f'\n tour recu : {tour}')
-    board = connexion_avec_serveur.recv(2048).decode()
-    ressources = connexion_avec_serveur.recv(2048).decode()
+    board = new_recv()
+    ressources = new_recv()
     print(board, '\n')
     print(ressources, '\n')
     print(tour, '\n')
     if tour == 'votre':
-        hand = connexion_avec_serveur.recv(2048).decode()
+        hand = new_recv()
         print(hand, '\n')
         possible_choice = ''
         choice = ''
         while possible_choice != "true":
             choice = input('Choisissez parmi vendre, échanger, chameaux ou prendre\n')
-            connexion_avec_serveur.send(choice.encode())
-            possible_choice = connexion_avec_serveur.recv(2048).decode()
+            new_send(choice)
+            possible_choice = new_recv()
             print(possible_choice)
 
         if choice == 'vendre':
             ok_sell = False
             while not ok_sell:
                 choice = input("Quelle matière vendre ?\n")
-                connexion_avec_serveur.send(choice.encode())
+                new_send(choice)
                 quantity = input('Quelle quantité ?\n')
-                connexion_avec_serveur.send(quantity.encode())
-                ok_sell = (connexion_avec_serveur.recv(2048).decode() == 'true')
-            print(connexion_avec_serveur.recv(2048).decode())
+                new_send(quantity)
+                ok_sell = (new_recv() == 'true')
+            print(new_recv())
         elif choice == 'chameaux':
-            nb = connexion_avec_serveur.recv(2048).decode()
+            nb = new_recv()
             nb = int(nb)
             print(f'Vous avez récupéré {nb} chameaux')
         elif choice == 'échanger':
@@ -55,42 +64,42 @@ while not end:
                 ok_chameaux = False
                 while not ok_chameaux:
                     nb_cham = input("Combien de chameaux voulez-vous échanger ?\n")
-                    ok_chameaux = (connexion_avec_serveur.recv(2048).decode() == 'true')
+                    ok_chameaux = (new_recv() == 'true')
                 ok_cards = False
                 while not ok_cards:
                     nb_cards = input("Combien de cartes voulez-vous échanger ?\n")
-                    ok_cards = (connexion_avec_serveur.recv(2048).decode() == 'true')
-                ok_pre_trade = (connexion_avec_serveur.recv(2048).decode() == 'true')
+                    ok_cards = (new_recv() == 'true')
+                ok_pre_trade = (new_recv() == 'true')
             ok_trade = False
             while not ok_trade:
-                possible_choice = connexion_avec_serveur.recv(2048).decode()
-                chosen_cards = connexion_avec_serveur.recv(2048).decode()
+                possible_choice = new_recv()
+                chosen_cards = new_recv()
                 print(possible_choice)
                 print(chosen_cards)
                 ok_choice_c = False
                 while not ok_choice_c:
-                    print(connexion_avec_serveur.recv(2048).decode())
+                    print(new_recv())
                     choice = input('Quelle carte donner ?\n')
-                    connexion_avec_serveur.send(choice.encode())
-                    if connexion_avec_serveur.recv(2048).decode() == 'true':
+                    new_send(choice)
+                    if new_recv() == 'true':
                         ok_choice_c = True
                     else:
                         ok_choice_c = False
-                ok_trade = (connexion_avec_serveur.recv(2048).decode() == 'true')
-                print(connexion_avec_serveur.recv(2048).decode())
+                ok_trade = (new_recv() == 'true')
+                print(new_recv())
         elif choice == 'prendre':
             ok_take = ""
             while ok_take != 'true':
                     choice = input("Quelle carte prendre ?\n")
-                    connexion_avec_serveur.send(choice.encode())
-                    ok_take = connexion_avec_serveur.recv(2048).decode()
+                    new_send(choice)
+                    ok_take = new_recv()
 
 
 
     else:
         end_turn = False
         while not end_turn:
-            strn = connexion_avec_serveur.recv(2048).decode()
+            strn = new_recv()
             if strn == 'fin':
                 end_turn = True
             else:
