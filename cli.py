@@ -5,17 +5,21 @@ connexion_avec_serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connexion_avec_serveur.connect((hote, port))
 print("connecté")
 
+
 def new_recv():
     msg = connexion_avec_serveur.recv(2048).decode()
-    print('on a reçu un truc')
-    connexion_avec_serveur.send(msg.encode())
+    print(f'message reçu {msg}')
+    dd = 'ok'
+    connexion_avec_serveur.send(dd.encode())
+    print('confirmation envoyée')
     return msg
 
 
 def new_send(msg):
     connexion_avec_serveur.send(msg.encode())
-    connexion_avec_serveur.recv(2048)
-
+    print('message envoyée')
+    ro = connexion_avec_serveur.recv(2048).decode()
+    print('confirmation reçue')
 
 
 end = False
@@ -26,7 +30,7 @@ board = new_recv()
 print(board)
 print('board reçu, on attend la main')
 hand = new_recv()
-print(f'Votre main est : {hand} \n')
+print(hand)
 while not end:
     tour = new_recv()
     print(f'\n tour recu : {tour}')
@@ -36,6 +40,7 @@ while not end:
     print(ressources, '\n')
     print(tour, '\n')
     if tour == 'votre':
+        print("C'EST TON TOUR WESH")
         hand = new_recv()
         print(hand, '\n')
         possible_choice = ''
@@ -98,6 +103,7 @@ while not end:
 
 
     else:
+        print("C'est pas ton tour wesh")
         end_turn = False
         while not end_turn:
             strn = new_recv()

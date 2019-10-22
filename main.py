@@ -16,11 +16,15 @@ client2, adress2 = conn.accept()
 
 def new_send(socket, msg):
     socket.send(msg.encode())
-    socket.recv(2048)
+    print(f'on essaie envoyer {msg}')
+    b = socket.recv(2048).decode()
 
 def new_recv(socket):
     msg = socket.recv(2048).decode()
-    socket.send(msg.encode())
+    print('message reçu')
+    dd = 'ok'
+    socket.send(dd.encode())
+    print('confirmation envoyée')
     return msg
 
 
@@ -287,6 +291,7 @@ def new_game():
     b = show_board()
     h1 = joueur1.show_hand()
     h2 = joueur2.show_hand()
+    print('main générées')
     new_send(joueur1.socket, b)
     new_send(joueur2.socket, b)
 
