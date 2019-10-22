@@ -19,6 +19,7 @@ def new_send(socket, msg):
     print(f'on essaie envoyer {msg}')
     b = socket.recv(2048).decode()
 
+
 def new_recv(socket):
     msg = socket.recv(2048).decode()
     print('message reçu')
@@ -36,16 +37,16 @@ def remove_values_from_list(the_list, val):
     return [value for value in the_list if value != val]
 
 
-def remove_el(list, el):
-        while el in list:
-            list.remove(el)
+def remove_el(liste, el):
+    while el in liste:
+        liste.remove(el)
 
 
-def show_line(list, mess):
-    str = ''
-    for l in list:
-        str += l + ', '
-    return mess + str
+def show_line(liste, mess):
+    strn = ''
+    for l in liste:
+        strn += l + ', '
+    return mess + strn
 
 
 def trade_1(player):
@@ -292,6 +293,8 @@ def new_game():
     h1 = joueur1.show_hand()
     h2 = joueur2.show_hand()
     print('main générées')
+    print(f'Main j1 {h1}')
+    print(f'Main j2 {h2}')
     new_send(joueur1.socket, b)
     new_send(joueur2.socket, b)
 
@@ -302,15 +305,16 @@ def new_game():
     new_send(joueur2.socket, h2)
 
     print('main j2 envoyée')
-    print('On a envoyé leurs mains aux deux joueurs \n')
+    print('On a envoyé leur main aux deux joueurs \n')
     while not end_game():
+        print('Boucle')
         b = show_board()
         r = show_ressources()
         s = 'votre'
         d = 'nv'
-        client1.recv(2048)
         new_send(client1, s)
         new_send(client2, d)
+        print('on a envoyé les indications de tour')
         new_send(client1, b)
         print('On a tout envoyé 1')
         new_send(client1, r)

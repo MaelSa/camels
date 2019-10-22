@@ -32,6 +32,7 @@ print('board reçu, on attend la main')
 hand = new_recv()
 print(hand)
 while not end:
+    print('ON ENTRE DANS LA BOUUCLEEE')
     tour = new_recv()
     print(f'\n tour recu : {tour}')
     board = new_recv()
