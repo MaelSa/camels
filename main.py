@@ -7,7 +7,7 @@ from data import *
 
 
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-conn.bind(('', 8000))
+conn.bind(('', 8001))
 conn.listen(5)
 
 client1, adress1 = conn.accept()
@@ -16,10 +16,11 @@ client2, adress2 = conn.accept()
 
 def new_send(socket, msg):
     socket.send(msg.encode())
-
+    socket.recv(2048)
 
 def new_recv(socket):
     msg = socket.recv(2048).decode()
+    socket.send(msg.encode())
     return msg
 
 

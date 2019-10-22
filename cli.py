@@ -1,12 +1,13 @@
 import socket
 hote = 'localhost'
-port = 8000
+port = 8001
 connexion_avec_serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connexion_avec_serveur.connect((hote, port))
 print("connecté")
 
 def new_recv():
     msg = connexion_avec_serveur.recv(2048).decode()
+    print('on a reçu un truc')
     connexion_avec_serveur.send(msg.encode())
     return msg
 
