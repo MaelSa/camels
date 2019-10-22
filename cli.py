@@ -8,18 +8,14 @@ print("connecté")
 
 def new_recv():
     msg = connexion_avec_serveur.recv(2048).decode()
-    print(f'message reçu {msg}')
     dd = 'ok'
     connexion_avec_serveur.send(dd.encode())
-    print('confirmation envoyée')
     return msg
 
 
 def new_send(msg):
     connexion_avec_serveur.send(msg.encode())
-    print('message envoyée')
     ro = connexion_avec_serveur.recv(2048).decode()
-    print('confirmation reçue')
 
 
 end = False

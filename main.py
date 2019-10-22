@@ -16,16 +16,13 @@ client2, adress2 = conn.accept()
 
 def new_send(socket, msg):
     socket.send(msg.encode())
-    print(f'on essaie envoyer {msg}')
     b = socket.recv(2048).decode()
 
 
 def new_recv(socket):
     msg = socket.recv(2048).decode()
-    print('message reçu')
     dd = 'ok'
     socket.send(dd.encode())
-    print('confirmation envoyée')
     return msg
 
 
@@ -132,6 +129,10 @@ def trade(player):
     chosen_cards_board = trade_2(len(chosen_cards_hand), player)
     for c in chosen_cards_board:
         player.add_hand(c)
+    str_chosen = show_line(chosen_cards_hand, "")
+    str_chosen_board = show_line(chosen_cards_board, "")
+    new_send(player.oponent_socket, f"Votre adversaire a pris {str_chosen_board} et a ajouté {str_chosen} sur le marché")
+    new_send(player.socket, f"Vous avez bien échangé {str_chosen_board} contre {str_chosen}")
     print("échange effectué")
 
 
@@ -153,6 +154,7 @@ def take_card(player):
         valid_choice = (choice in board)
         if valid_choice:
             new_send(player.socket, 'true')
+            new_send(player.oponent_socket, f"Carte prise par l'adversaire : {choice}")
         else:
             player.socket.send('false'.encode())
             new_send(player.socket, 'false')
@@ -165,7 +167,7 @@ def buy_ressource_1(player):
     ok_buy = False
     while not ok_buy:
         res = new_recv(player.socket)
-        c = new_recv(player.socket)
+        c = int(new_recv(player.socket))
         ok_buy = buy_ressource_2(res, c, player)
         if ok_buy:
             new_send(player.socket, 'true')
@@ -185,6 +187,7 @@ def buy_ressource_2(ressource, nb, player):
             player.add_score(bonus[count].pop())
         print("Vente effectuée")
         ok_buy = True
+        new_send(player.oponent_socket, f"Votre adversaire a acheté {count} {ressource}")
     else:
         print("Vente impossible")
     return ok_buy
@@ -218,6 +221,7 @@ def turn(player):
     print(f'Tour de {player.name}')
     new_send(player.socket, player.show_hand())
     print(f'Vous avez {player.nb_camel} chameaux')
+    new_send(player.oponent_socket, f'Adversaire a {player.nb_camel}')
     print(f'Votre score est {player.score}')
     show_board()
     show_ressources()
@@ -226,6 +230,7 @@ def turn(player):
     while not success_choice:
         print('Choix possibles : prendre, échannger, vendre ou chameaux')
         choice = new_recv(player.socket)
+        new_send(player.oponent_socket, f"Choix de l'adversaire : {choice}")
         if choice == "prendre":
             success_choice = player.ok_choice_take_card()
         elif choice == 'échanger':
@@ -307,13 +312,14 @@ def new_game():
     print('main j2 envoyée')
     print('On a envoyé leur main aux deux joueurs \n')
     while not end_game():
-        print('Boucle')
         b = show_board()
         r = show_ressources()
         s = 'votre'
         d = 'nv'
         new_send(client1, s)
         new_send(client2, d)
+        print(f'CHam 1 : {joueur1.nb_camel}')
+        print(f'CHam 2 : {joueur2.nb_camel}')
         print('on a envoyé les indications de tour')
         new_send(client1, b)
         print('On a tout envoyé 1')
@@ -340,5 +346,13 @@ def new_game():
         new_send(client1, f)
         print('Signal de fin envoyé à j1')
         fill_board()
-
+    if joueur1.score > joueur2.score:
+        print("Victoire de joueur 1")
+        new_send(joueur1.socket, f"Victoire, vous avez {joueur1.score} points")
+        new_send(joueur2.socket, f"Défaite, vous n'avez que {joueur2.score} points")
+    elif joueur2.score == joueur1.score:
+        print("égalité")
+    else:
+        new_send(joueur2.socket, f"Victoire, vous avez {joueur2.score} points")
+        new_send(joueur1.socket, f"Défaite, vous n'avez que {joueur1.score} points")
 new_game()

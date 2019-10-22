@@ -1,0 +1,12 @@
+Functionnal:
+- Basic loop
+
+Missing:
+ - Showing score
+ - Actual ressources update and messages
+ - Number camels
+ - Keep j2 updated on what j1 is doing
+ - Rare ressources system
+ - Adjust warnings server side
+ -
+e
