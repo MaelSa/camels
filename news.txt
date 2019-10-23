@@ -8,5 +8,5 @@ Missing:
  - Keep j2 updated on what j1 is doing
  - Rare ressources system
  - Adjust warnings server side
- -
-e
+ - camels still in hand after dealing instead of going into camel zone
+ - Control score issues

@@ -14,20 +14,25 @@ client1, adress1 = conn.accept()
 client2, adress2 = conn.accept()
 
 
-def new_send(socket, msg):
-    socket.send(msg.encode())
-    b = socket.recv(2048).decode()
+def new_send(socket_, msg):
+    socket_.send(msg.encode())
+    b = socket_.recv(2048).decode()
 
 
-def new_recv(socket):
-    msg = socket.recv(2048).decode()
+def new_recv(socket_):
+    msg = socket_.recv(2048).decode()
     dd = 'ok'
-    socket.send(dd.encode())
+    socket_.send(dd.encode())
     return msg
 
 
 def shuffle_deck():
     random.shuffle(deck)
+
+
+def shuffle_bonus():
+    for key, value in ressources.items():
+        random.shuffle(value)
 
 
 def remove_values_from_list(the_list, val):
@@ -53,7 +58,7 @@ def trade_1(player):
     while not ok_pre_trade:
         ok_camels = False
         while not ok_camels:
-            nb_camels_trade = new_recv(player.socket)
+            nb_camels_trade = int(new_recv(player.socket))
             if 0 <= nb_camels_trade <= min(player.nb_camel, 5-len(player.hand_str)):
                 ok_camels = True
                 new_send(player.socket, 'true')
@@ -62,8 +67,8 @@ def trade_1(player):
                 new_send(player, 'false')
         ok_cards = False
         while not ok_cards:
-            nb_cards_trade = new_recv(player.socket)
-            if 0<= nb_cards_trade <= len(player.hand_str):
+            nb_cards_trade = int(new_recv(player.socket))
+            if 0 <= nb_cards_trade <= len(player.hand_str):
                 ok_cards = True
                 new_send(player.socket, 'true')
             else:
@@ -96,11 +101,13 @@ def trade_1(player):
                     new_send(player.socket, 'false')
             chosen_cards.append(choice)
             possible_choices.remove(choice)
-            new_send(player.socket, 'false')
+            if i == nb_cards_trade - 2:
+                new_send(player.socket, 'almost')
+            else:
+                new_send(player.socket, 'false')
         ok_choice_cards = True
-        new_send(player.socket, 'true')
         player.hand_str = possible_choices
-        new_send(player.socket, show_line(possible_choices, 'Vous avez choisi : '))
+        new_send(player.socket, show_line(chosen_cards, 'Vous avez choisi : '))
     return chosen_cards
 
 
@@ -113,12 +120,20 @@ def trade_2(nb_cards, player):
     for i in range(0, nb_cards):
         ok_choice = False
         while not ok_choice:
-            show_line(possible_choices, 'Choix possibles : ')
-            show_line(chosen_cards, 'Cartes choisies : ')
+            new_send(player.socket, show_line(possible_choices, 'Choix possibles : '))
+            new_send(player.socket, show_line(chosen_cards, 'Cartes choisies : '))
             choice = new_recv(player.socket)
             ok_choice = (choice in possible_choices)
+            if ok_choice:
+                new_send(player.socket, 'true')
+            else:
+                new_send(player.socket, 'false')
         possible_choices.remove(choice)
         chosen_cards.append(choice)
+        if i == nb_cards - 2:
+            new_send(player.socket, 'almost')
+        else:
+            new_send(player.socket, 'false')
     for c in chosen_cards:
         board.remove(c)
     return chosen_cards
@@ -221,7 +236,7 @@ def turn(player):
     print(f'Tour de {player.name}')
     new_send(player.socket, player.show_hand())
     print(f'Vous avez {player.nb_camel} chameaux')
-    new_send(player.oponent_socket, f'Adversaire a {player.nb_camel}')
+    new_send(player.oponent_socket, f'Adversaire a {player.nb_camel} chameaux')
     print(f'Votre score est {player.score}')
     show_board()
     show_ressources()
@@ -272,23 +287,46 @@ def fill_board():
 def deal_hand(player):
     for i in range(5):
         player.take_card(deck.pop())
+    print(f'La main dealt est {player.hand_str}')
+    c = 0
+    while c + 1 < len(player.hand_str):
+        if player.hand_str[c] == 'chameau':
+            player.hand_str.remove('chameau')
+            player.nb_camel += 1
+        c += 1
+    if len(player.hand_str) > 0:
+        if player.hand_str[-1] == "chameau":
+            player.hand_str.remove("chameau")
+            player.nb_camel += 1
 
+    if len(player.hand_str) > 0:
+        if player.hand_str[-1] == "chameau":
+            player.hand_str.remove("chameau")
+            player.nb_camel += 1
+
+    if len(player.hand_str) > 0:
+        if player.hand_str[-1] == "chameau":
+            player.hand_str.remove("chameau")
+            player.nb_camel += 1
+    """
     for c in player.hand_str:
         if c == 'chameau':
             player.hand_str.remove('chameau')
             player.nb_camel += 1
+    """
 
 
 def setup_game():
     shuffle_deck()
+    shuffle_bonus()
     fill_board()
 
 
 def new_game():
     name1 = new_recv(client1)
-    print(f'Premier joueur : {name1} \n')
+    print(f'Premier joueur : {name1}')
     name2 = new_recv(client2)
-    print(f'Second joueur : {name2} \n')
+    print(f'Second joueur : {name2}')
     joueur1 = Player(name1, client1, client2)
     joueur2 = Player(name2, client2, client1)
     setup_game()
@@ -297,41 +335,30 @@ def new_game():
     b = show_board()
     h1 = joueur1.show_hand()
     h2 = joueur2.show_hand()
-    print('main générées')
     print(f'Main j1 {h1}')
     print(f'Main j2 {h2}')
     new_send(joueur1.socket, b)
     new_send(joueur2.socket, b)
-
-    print('On a envoyé le board aux deux joueurs \n')
-
     new_send(joueur1.socket, h1)
-    print('main j1 envoyée')
     new_send(joueur2.socket, h2)
-
-    print('main j2 envoyée')
-    print('On a envoyé leur main aux deux joueurs \n')
     while not end_game():
         b = show_board()
         r = show_ressources()
         s = 'votre'
-        d = 'nv'
+        d = 'adversaire'
         new_send(client1, s)
         new_send(client2, d)
         print(f'CHam 1 : {joueur1.nb_camel}')
         print(f'CHam 2 : {joueur2.nb_camel}')
-        print('on a envoyé les indications de tour')
         new_send(client1, b)
-        print('On a tout envoyé 1')
         new_send(client1, r)
         new_send(client2, b)
         new_send(client2, r)
-        print('On a tout envoyé 2')
-        print("Début tour j1")
+        new_send(client1, f'Vous avez {joueur1.nb_camel} chameaux')
+        new_send(client2, f'Votre adversaire a {joueur1.nb_camel} chameaux')
         turn(joueur1)
         f = 'fin'
         new_send(client2, f)
-        print('Envoyé signal de fin de tour à J2')
         fill_board()
 
         new_send(client1, d)
@@ -340,11 +367,11 @@ def new_game():
         new_send(client1, r)
         new_send(client2, b)
         new_send(client2, r)
-        print('Données toutes envoyées')
         print('Début tour j2')
+        new_send(client2, f'Vous avez {joueur2.nb_camel} chameaux')
+        new_send(client1, f'Votre adversaire a {joueur2.nb_camel} chameaux')
         turn(joueur2)
         new_send(client1, f)
-        print('Signal de fin envoyé à j1')
         fill_board()
     if joueur1.score > joueur2.score:
         print("Victoire de joueur 1")
@@ -353,6 +380,7 @@ def new_game():
     elif joueur2.score == joueur1.score:
         print("égalité")
     else:
+        print('Victoire de joueur 2')
         new_send(joueur2.socket, f"Victoire, vous avez {joueur2.score} points")
         new_send(joueur1.socket, f"Défaite, vous n'avez que {joueur1.score} points")
 new_game()
