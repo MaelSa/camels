@@ -91,21 +91,31 @@ while not end:
                         ok_choice_c = True
                     else:
                         ok_choice_c = False
+                print('On a quitté la donation')
                 ok_trade = almost
                 almost = (new_recv() == 'almost')
+                if almost:
+                    print('were almost there')
             print('on est sorti de la boucle')
             ok_trade2 = False
             ok_choice = False
             almost = False
             while not ok_trade2:
-                print(new_recv())
-                print(new_recv())
+
                 while not ok_choice:
+                    print(new_recv())
+                    print(new_recv())
+                    print(new_recv())
                     choice = input('Quelle carte prendre ? \n')
+                    new_send(choice)
+                    print("On envoie le choice")
                     ok_choice = (new_recv() == 'true')
+                    print('')
                 ok_trade2 = almost
                 almost = (new_recv() == 'almost')
             print(new_recv())
+
+
         elif choice == 'prendre':
             ok_take = ""
             while ok_take != 'true':

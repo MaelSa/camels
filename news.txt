@@ -10,3 +10,5 @@ Missing:
  - Adjust warnings server side
  - camels still in hand after dealing instead of going into camel zone
  - Control score issues
+ - Trading keeps bugging out
+ - Bug lorsqu'on demande d'échanger 1 seule carte (et plusieurs chameaux)

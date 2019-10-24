@@ -64,7 +64,7 @@ def trade_1(player):
                 new_send(player.socket, 'true')
             else:
                 print("Nombre de chameaux non valide")
-                new_send(player, 'false')
+                new_send(player.socket, 'false')
         ok_cards = False
         while not ok_cards:
             nb_cards_trade = int(new_recv(player.socket))
@@ -103,8 +103,10 @@ def trade_1(player):
             possible_choices.remove(choice)
             if i == nb_cards_trade - 2:
                 new_send(player.socket, 'almost')
+                print('were almost there')
             else:
                 new_send(player.socket, 'false')
+        print('On quitte la donation')
         ok_choice_cards = True
         player.hand_str = possible_choices
         new_send(player.socket, show_line(chosen_cards, 'Vous avez choisi : '))
@@ -112,6 +114,7 @@ def trade_1(player):
 
 
 def trade_2(nb_cards, player):
+    print('On commence à prendre pépouze')
     possible_choices = []
     for b in board:
         possible_choices.append(b)
@@ -120,20 +123,32 @@ def trade_2(nb_cards, player):
     for i in range(0, nb_cards):
         ok_choice = False
         while not ok_choice:
+            print('on est dans la boucle prise')
+            print('i : ', i)
+            print(nb_cards - 2)
             new_send(player.socket, show_line(possible_choices, 'Choix possibles : '))
+            print('1')
             new_send(player.socket, show_line(chosen_cards, 'Cartes choisies : '))
+            print("2")
+            print('on attend un choice')
             choice = new_recv(player.socket)
+            print('On a eu le choice')
             ok_choice = (choice in possible_choices)
             if ok_choice:
+                print('on a du true sur le choice')
                 new_send(player.socket, 'true')
             else:
+                print('On a du false sur le choice')
                 new_send(player.socket, 'false')
+        print('11')
         possible_choices.remove(choice)
         chosen_cards.append(choice)
         if i == nb_cards - 2:
             new_send(player.socket, 'almost')
+            print('Almost dans prendre')
         else:
             new_send(player.socket, 'false')
+            print('Woow')
     for c in chosen_cards:
         board.remove(c)
     return chosen_cards
