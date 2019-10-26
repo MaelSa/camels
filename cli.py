@@ -70,6 +70,7 @@ while not end:
                     new_send(nb_cham)
                     ok_chameaux = (new_recv() == 'true')
                 ok_cards = False
+                nb_cards = ''
                 while not ok_cards:
                     nb_cards = input("Combien de cartes voulez-vous échanger ?")
                     new_send(nb_cards)
@@ -77,44 +78,43 @@ while not end:
                 ok_pre_trade = (new_recv() == 'true')
             ok_trade = False
             almost = False
-            while not ok_trade:
-                possible_choice = new_recv()
-                chosen_cards = new_recv()
-                print(possible_choice)
-                print(chosen_cards)
-                ok_choice_c = False
-                while not ok_choice_c:
-                    print(new_recv())
-                    choice = input('Quelle carte donner ?')
-                    new_send(choice)
-                    if new_recv() == 'true':
-                        ok_choice_c = True
-                    else:
-                        ok_choice_c = False
-                print('On a quitté la donation')
-                ok_trade = almost
-                almost = (new_recv() == 'almost')
-                if almost:
-                    print('were almost there')
-            print('on est sorti de la boucle')
+            ok_choice_cards = False
+            nb_cards_int = int(nb_cards)
+            while not ok_choice_cards:
+
+                for i in range(0, nb_cards_int):
+                    possible_choice = new_recv()
+                    chosen_cards = new_recv()
+                    print(possible_choice)
+                    print(chosen_cards)
+                    ok_choice_c = False
+                    while not ok_choice_c:
+                        print(new_recv())
+                        choice = input('Quelle carte donner ?')
+                        new_send(choice)
+                        if new_recv() == 'true':
+                            ok_choice_c = True
+                        else:
+                            ok_choice_c = False
+                print(new_recv())
+                ok_choice_cards = True
+
+            nb_tot_cards_str = new_recv()
+            nb_tot_cards = int(nb_tot_cards_str)
             ok_trade2 = False
             ok_choice = False
             almost = False
-            while not ok_trade2:
-
+            for i in range(0, nb_tot_cards):
+                ok_choice = False
                 while not ok_choice:
-                    print(new_recv())
-                    print(new_recv())
-                    print(new_recv())
+                    possible_choice = new_recv()
+                    chosen_cards = new_recv()
+                    print(possible_choice)
+                    print(chosen_cards)
                     choice = input('Quelle carte prendre ? \n')
                     new_send(choice)
-                    print("On envoie le choice")
                     ok_choice = (new_recv() == 'true')
-                    print('')
-                ok_trade2 = almost
-                almost = (new_recv() == 'almost')
             print(new_recv())
-
 
         elif choice == 'prendre':
             ok_take = ""

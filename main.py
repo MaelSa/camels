@@ -8,7 +8,7 @@ from data import *
 
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 conn.bind(('', 8001))
-conn.listen(5)
+conn.listen(2)
 
 client1, adress1 = conn.accept()
 client2, adress2 = conn.accept()
@@ -101,20 +101,17 @@ def trade_1(player):
                     new_send(player.socket, 'false')
             chosen_cards.append(choice)
             possible_choices.remove(choice)
-            if i == nb_cards_trade - 2:
-                new_send(player.socket, 'almost')
-                print('were almost there')
-            else:
-                new_send(player.socket, 'false')
+
         print('On quitte la donation')
         ok_choice_cards = True
         player.hand_str = possible_choices
         new_send(player.socket, show_line(chosen_cards, 'Vous avez choisi : '))
-    return chosen_cards
+    return chosen_cards, total_trade
 
 
 def trade_2(nb_cards, player):
     print('On commence à prendre pépouze')
+    new_send(player.socket, str(nb_cards))
     possible_choices = []
     for b in board:
         possible_choices.append(b)
@@ -123,13 +120,8 @@ def trade_2(nb_cards, player):
     for i in range(0, nb_cards):
         ok_choice = False
         while not ok_choice:
-            print('on est dans la boucle prise')
-            print('i : ', i)
-            print(nb_cards - 2)
             new_send(player.socket, show_line(possible_choices, 'Choix possibles : '))
-            print('1')
             new_send(player.socket, show_line(chosen_cards, 'Cartes choisies : '))
-            print("2")
             print('on attend un choice')
             choice = new_recv(player.socket)
             print('On a eu le choice')
@@ -143,20 +135,14 @@ def trade_2(nb_cards, player):
         print('11')
         possible_choices.remove(choice)
         chosen_cards.append(choice)
-        if i == nb_cards - 2:
-            new_send(player.socket, 'almost')
-            print('Almost dans prendre')
-        else:
-            new_send(player.socket, 'false')
-            print('Woow')
     for c in chosen_cards:
         board.remove(c)
     return chosen_cards
 
 
 def trade(player):
-    chosen_cards_hand = trade_1(player)
-    chosen_cards_board = trade_2(len(chosen_cards_hand), player)
+    chosen_cards_hand, total_trade = trade_1(player)
+    chosen_cards_board = trade_2(total_trade, player)
     for c in chosen_cards_board:
         player.add_hand(c)
     str_chosen = show_line(chosen_cards_hand, "")
@@ -309,6 +295,16 @@ def deal_hand(player):
             player.hand_str.remove('chameau')
             player.nb_camel += 1
         c += 1
+    if len(player.hand_str) > 0:
+        if player.hand_str[-1] == "chameau":
+            player.hand_str.remove("chameau")
+            player.nb_camel += 1
+
+    if len(player.hand_str) > 0:
+        if player.hand_str[-1] == "chameau":
+            player.hand_str.remove("chameau")
+            player.nb_camel += 1
+
     if len(player.hand_str) > 0:
         if player.hand_str[-1] == "chameau":
             player.hand_str.remove("chameau")
