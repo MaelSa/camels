@@ -12,3 +12,8 @@ Missing:
  - Control score issues
  - Trading keeps bugging out
  - Bug lorsqu'on demande d'échanger 1 seule carte (et plusieurs chameaux)
+
+
+Graphical part:
+ - Main interface in a pygame interface
+ - Side things in tkinter (identificatinon, preference in trading and everything you can do in a turn)
