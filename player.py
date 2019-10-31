@@ -1,5 +1,5 @@
 class Player:
-    def __init__(self, name, socket, oponnent_socket):
+    def __init__(self, name, socket, oponnent_socket, position):
         """
         Creates a player, with a name, a socket and the opponent's socket
         :param name: string
@@ -15,6 +15,10 @@ class Player:
         self.bonus_int = 0
         self.socket = socket
         self.oponent_socket = oponnent_socket
+        self.position = position
+        self.is_turn = False
+        self.is_turn = False
+        self.other_player = None
 
     def buy(self, ressource, nb):
         """
