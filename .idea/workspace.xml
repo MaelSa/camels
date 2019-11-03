@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae312f2d-85d3-4bda-9583-911181d23c58" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client_graphic2.py" beforeDir="false" afterPath="$PROJECT_DIR$/client_graphic2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server_graphic2.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_graphic2.py" afterDir="false" />
@@ -31,18 +30,9 @@
     <favorites_list name="camels" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.42440477">
+    <splitter split-orientation="horizontal" split-proportion="0.37432513">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/player.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/data.py">
               <provider selected="true" editor-type-id="text-editor">
@@ -73,8 +63,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server_graphic2.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="749">
-                  <caret line="230" lean-forward="true" selection-start-line="230" selection-end-line="230" />
+                <state relative-caret-position="209">
+                  <caret line="105" column="28" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="28" />
                   <folding>
                     <element signature="e#15#35#0" expanded="true" />
                   </folding>
@@ -98,11 +88,20 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client_graphic2.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="185">
-                  <caret line="394" column="12" selection-start-line="394" selection-start-column="12" selection-end-line="394" selection-end-column="12" />
+                <state relative-caret-position="441">
+                  <caret line="378" column="20" selection-start-line="378" selection-start-column="20" selection-end-line="378" selection-end-column="20" />
                   <folding>
                     <element signature="e#0#13#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/player.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="420">
+                  <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
                 </state>
               </provider>
             </entry>
@@ -137,7 +136,6 @@
       <find>comic</find>
       <find>display</find>
       <find>take_card</find>
-      <find>take</find>
       <find>deal</find>
       <find>display_camels</find>
       <find>new_turn_g</find>
@@ -146,6 +144,8 @@
       <find>player_hand</find>
       <find>player_hand&amp;</find>
       <find>fill</find>
+      <find>take</find>
+      <find>poss</find>
     </findStrings>
     <replaceStrings>
       <replace>game.board</replace>
@@ -167,14 +167,14 @@
         <option value="$PROJECT_DIR$/ClientTurn.py" />
         <option value="$PROJECT_DIR$/player.py" />
         <option value="$PROJECT_DIR$/game.py" />
-        <option value="$PROJECT_DIR$/server_graphic2.py" />
         <option value="$PROJECT_DIR$/client_graphic2.py" />
+        <option value="$PROJECT_DIR$/server_graphic2.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="168" />
-    <option name="y" value="277" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="170" />
+    <option name="y" value="-27" />
     <option name="width" value="1345" />
     <option name="height" value="1103" />
   </component>
@@ -185,7 +185,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -202,6 +201,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -232,7 +232,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.server_graphic2">
+  <component name="RunManager" selected="Python.client_graphic2">
     <configuration name="cli" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true">
       <module name="Chameaux" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -389,11 +389,15 @@
       <workItem from="1572686600491" duration="9685000" />
       <workItem from="1572725928363" duration="11000" />
       <workItem from="1572726207513" duration="1692000" />
+      <workItem from="1572734002766" duration="4990000" />
+      <workItem from="1572777967661" duration="34000" />
+      <workItem from="1572781624568" duration="6105000" />
+      <workItem from="1572789528274" duration="1218000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113172000" />
+    <option name="totallyTimeSpent" value="125519000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -406,13 +410,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48970747" visible="true" weight="0.1076759" />
-      <window_info id="Structure" order="1" sideWeight="0.51029253" side_tool="true" visible="true" weight="0.1076759" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48513514" visible="true" weight="0.11247335" />
+      <window_info id="Structure" order="1" sideWeight="0.51486486" side_tool="true" visible="true" weight="0.11247335" />
       <window_info id="Favorites" order="2" sideWeight="0.50812566" side_tool="true" weight="0.104477614" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49307036" weight="0.20910075" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49307036" visible="true" weight="0.19826652" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.25135428" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -506,8 +511,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Chameaux$client_graphic.coverage" NAME="client_graphic Coverage Results" MODIFIED="1572432523505" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Chameaux$server_graphic2.coverage" NAME="server_graphic2 Coverage Results" MODIFIED="1572727170253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Chameaux$client_graphic2.coverage" NAME="client_graphic2 Coverage Results" MODIFIED="1572727173648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Chameaux$server_graphic2.coverage" NAME="server_graphic2 Coverage Results" MODIFIED="1572791013694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Chameaux$client_graphic2.coverage" NAME="client_graphic2 Coverage Results" MODIFIED="1572791016937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Chameaux$main.coverage" NAME="main Coverage Results" MODIFIED="1572077520585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/camels$main.coverage" NAME="main Coverage Results" MODIFIED="1571753653856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Chameaux$main_graphic.coverage" NAME="main_graphic Coverage Results" MODIFIED="1572432519959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -553,13 +558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/player.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -588,6 +586,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/player.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/threading.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17997">
@@ -597,8 +602,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client_graphic2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="394" column="12" selection-start-line="394" selection-start-column="12" selection-end-line="394" selection-end-column="12" />
+        <state relative-caret-position="441">
+          <caret line="378" column="20" selection-start-line="378" selection-start-column="20" selection-end-line="378" selection-end-column="20" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
@@ -607,8 +612,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server_graphic2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="749">
-          <caret line="230" lean-forward="true" selection-start-line="230" selection-end-line="230" />
+        <state relative-caret-position="209">
+          <caret line="105" column="28" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="28" />
           <folding>
             <element signature="e#15#35#0" expanded="true" />
           </folding>

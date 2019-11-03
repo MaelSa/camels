@@ -6,6 +6,8 @@ import socket
 from data import *
 from threading import *
 import time
+from queue import Queue
+q = Queue()
 
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 conn.bind(('', 8001))
@@ -79,19 +81,29 @@ def new_trade_g(player):
         player.hand_str.append(t)
         board.remove(t)
     player.nb_camel -= nb_camels_trade
+    q.put(board)
+    print(board)
     player.is_turn = False
 
 
 def new_take_camels_g(player):
     nb_camels_on_board = board.count("chameau")
     player.take_camels(nb_camels_on_board)
-    remove_el(board, "chameau")
+    for c in range(nb_camels_on_board):
+        board.remove('chameau')
+    fill_board()
+    send_tab(board, player.socket)
+    while not q.empty():
+        q.get()
+    q.put(board)
     player.is_turn = False
 
 
 def new_turn_g(player):
+    board = q.get()
     print('waiting for a choice')
     choice = new_recv(player.socket)
+    print(f'choice : {choice}')
     if choice == 'prendre':
         taken_card = new_recv(player.socket)
         player.take_card(taken_card)
@@ -109,7 +121,7 @@ def new_turn_g(player):
         new_trade_g(player)
         print('success trade')
     player.is_turn = False
-
+    q.put(board)
 
 def send_tab(tab, socket):
     str = ''
@@ -180,22 +192,25 @@ def setup_game():
     fill_board()
 
 
-def main_thread(player):
+def main_thread(player, q):
+    board = q.get()
     send_tab(board, player.socket)
     send_tab(player.hand_str, player.socket)
+    q.put(board)
     while not end_game():
-
+        board = q.get()
         send_tab(board, player.socket)
         #send_tab(player.hand_str, player.socket)
         if player.is_turn:
             # new_send(player.socket, str(player.nb_camel))
+            q.put(board)
             new_turn_g(player)
             player.is_turn = False
             player.other_player.is_turn = True
             fill_board()
-
+            board = q.get()
+            q.put(board)
         while not player.is_turn:
-            a = 1
             time.sleep(0.1)
         new_send(player.socket, 'votre')
         player.is_turn = True
@@ -217,14 +232,15 @@ def new_game():
     setup_game()
     deal_hand(joueur1)
     deal_hand(joueur2)
-
+    q.put(board)
+    q.put(board)
     joueur1.is_turn = True
     joueur2.is_turn = False
     new_send(joueur1.socket, '1')
     new_send(joueur2.socket, '2')
 
-    Thread(target=main_thread, args=(joueur2,)).start()
-    Thread(target=main_thread, args=(joueur1,)).start()
+    Thread(target=main_thread, args=(joueur2, q)).start()
+    Thread(target=main_thread, args=(joueur1, q)).start()
 
 
 new_game()

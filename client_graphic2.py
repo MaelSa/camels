@@ -11,6 +11,7 @@ connexion_avec_serveur.connect((hote, port))
 print("connecté")
 turn = ClientTurn(False)
 q = Queue()
+q2 = Queue()
 
 def new_recv():
     msg = connexion_avec_serveur.recv(2048).decode()
@@ -121,7 +122,7 @@ def check_clicked_cards_board():
     for i in range(len(board)):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
-        if x + w > mouse[0] > x and y + h > mouse[1] > y and click[0] == 1 and board[i] != 'chameau':
+        if x + w > mouse[0] > x and y + h > mouse[1] > y and click[0] == 1:
             if card_state_board[i] == True:
                 pygame.draw.rect(game.display, (71, 69, 209), (x, y - 5, w + 7, h + 7), 5)
                 card_state_board[i] = False
@@ -300,10 +301,22 @@ def take_card():
             c = i
     new_send('prendre')
     new_send(board[c])
+    #if not q2.empty():
+    #    player_hand = q2.get()
     player_hand.append(board[c])
+    board.remove(board[c])
+    while not q2.empty():
+        q2.get()
+    q2.put(player_hand)
+    while not q.empty():
+        q.get()
+    q.put(board)
     turn.is_turn = False
 
+
 def sell_ressource():
+    if not q2.empty():
+        player_hand = q2.get()
     for i in range(len(card_state_hand)):
         if card_state_hand[i] == True:
             c = i
@@ -312,6 +325,11 @@ def sell_ressource():
     new_send('vendre')
     new_send(res)
     new_send(str(cb))
+    for i in range(cb):
+        player_hand.remove(res)
+    while not q2.empty():
+        q2.get()
+    q2.put(player_hand)
     turn.is_turn = False
 
 
@@ -321,7 +339,18 @@ def take_camels():
     :return:
     """
     new_send('chameaux')
+    """
+    if not q.empty():
+        board = q.get()
+    for c in board:
+        if c == 'chameaux':
+            board.remove(c)
+    q.put(board)
+    """
+    board = receive_tab()
+    q.put(board)
     turn.is_turn = False
+
 
 def trade_cards():
     '''
@@ -330,20 +359,35 @@ def trade_cards():
     '''
     tab_take = []
     tab_give = []
-
+    #if not q.empty():
+    #    board = q.get()
+    #if not q2.empty():
+    #    player_hand = q2.get()
+    indexi = []
     for i in range(len(card_state_hand)):
         if card_state_hand[i] == True:
             tab_give.append(player_hand[i])
     for i in range(len(card_state_board)):
         if card_state_board[i] == True:
             tab_take.append(board[i])
+    for i in tab_give:
+        player_hand.remove(i)
+        board.append(i)
+    for i in tab_take:
+        board.remove(i)
+        player_hand.append(i)
+    print("were here")
+    q.put(board)
+
+    q2.put(player_hand)
     send_tab(tab_give)
     send_tab(tab_take)
     new_send(str(nb_selected_camels))
+    print(board)
     turn.is_turn = False
 
 
-def main_thread(board, q):
+def main_thread(board, q, q2, player_hand):
     '''
     Thread for pygame func while waiting for the other thread to end
     :return:
@@ -359,9 +403,14 @@ def main_thread(board, q):
 
     crashed = False
     while not crashed:
-        if not q.empty():
+        if not q2.empty():
+            player_hand = q2.get()
+        else:
+            q2.put(player_hand)
+        while not q.empty():
             board = q.get()
-        print(turn.is_turn)
+        q.put(board)
+        #q.put(board)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 crashed = True
@@ -379,7 +428,7 @@ def main_thread(board, q):
         clock.tick(60)
 
 
-def side_thread(board, q):
+def side_thread(board, q, q2, player_hand):
     """
     Threads for the player whose not playing, to wait for a signal from the
     server to end the turn
@@ -415,6 +464,11 @@ def side_thread(board, q):
             s = new_recv()
             if (s == 'votre'):
                 turn.is_turn = True
+            else:
+                while not q.empty:
+                    q.get()
+                q.put(board)
+
 
 first_window()
 new_send(player_name[0])
@@ -425,7 +479,8 @@ if t == '1':
 else:
     turn.is_turn = False
 board = receive_tab()
+q.put(board)
 player_hand = receive_tab()
-
-Thread(target=main_thread, args=(board, q)).start()
-Thread(target=side_thread, args=(board, q)).start()
+q2.put(player_hand)
+Thread(target=main_thread, args=(board, q, q2, player_hand)).start()
+Thread(target=side_thread, args=(board, q, q2, player_hand)).start()
