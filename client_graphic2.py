@@ -378,10 +378,15 @@ def trade_cards():
         player_hand.append(i)
     print("were here")
     q.put(board)
-
+    print('ok1')
     q2.put(player_hand)
+    print('ok2')
     send_tab(tab_give)
+    print(tab_give)
+    print('ok3')
+    print(tab_take)
     send_tab(tab_take)
+    print('and there')
     new_send(str(nb_selected_camels))
     print(board)
     turn.is_turn = False

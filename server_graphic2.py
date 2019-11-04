@@ -72,7 +72,9 @@ def end_turn():
 
 def new_trade_g(player):
     tab_give = receive_tab(player.socket)
+    print(tab_give)
     tab_take = receive_tab(player.socket)
+    print(tab_take)
     nb_camels_trade = int(new_recv(player.socket))
     for t in tab_give:
         player.hand_str.remove(t)
