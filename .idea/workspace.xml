@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae312f2d-85d3-4bda-9583-911181d23c58" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client_graphic2.py" beforeDir="false" afterPath="$PROJECT_DIR$/client_graphic2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server_graphic2.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_graphic2.py" afterDir="false" />
@@ -30,7 +31,7 @@
     <favorites_list name="camels" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5033073">
+    <splitter split-orientation="horizontal" split-proportion="0.4870404">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
@@ -63,10 +64,14 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server_graphic2.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="356">
-                  <caret line="76" column="18" selection-start-line="76" selection-start-column="18" selection-end-line="76" selection-end-column="18" />
+                <state relative-caret-position="226">
+                  <caret line="61" selection-start-line="61" selection-end-line="61" />
                   <folding>
                     <element signature="e#15#35#0" expanded="true" />
+                    <element signature="e#3093#3141#0" />
+                    <element signature="e#3319#3414#0" />
+                    <element signature="e#3444#4526#0" />
+                    <element signature="e#4552#4706#0" />
                   </folding>
                 </state>
               </provider>
@@ -88,10 +93,22 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client_graphic2.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="609">
-                  <caret line="386" column="19" selection-start-line="386" selection-start-column="19" selection-end-line="386" selection-end-column="19" />
+                <state relative-caret-position="342">
+                  <caret line="343" column="43" selection-start-line="343" selection-start-column="43" selection-end-line="343" selection-end-column="43" />
                   <folding>
                     <element signature="e#0#13#0" expanded="true" />
+                    <element signature="e#4939#5437#0" />
+                    <element signature="e#5485#5727#0" />
+                    <element signature="e#5761#6069#0" />
+                    <element signature="e#6198#6598#0" />
+                    <element signature="e#6236#6598#0" />
+                    <element signature="e#6633#7485#0" />
+                    <element signature="e#7523#7747#0" />
+                    <element signature="e#7806#8244#0" />
+                    <element signature="e#9464#9757#0" />
+                    <element signature="e#9464#9509#1" />
+                    <element signature="e#9539#9689#1" />
+                    <element signature="e#9783#10691#0" />
                   </folding>
                 </state>
               </provider>
@@ -100,17 +117,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/player.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/threading.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17997">
-                  <caret line="864" selection-start-line="864" selection-end-line="864" />
+                <state relative-caret-position="63">
+                  <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
                 </state>
               </provider>
             </entry>
@@ -144,8 +152,11 @@
       <find>player_hand</find>
       <find>player_hand&amp;</find>
       <find>fill</find>
-      <find>take</find>
       <find>poss</find>
+      <find>setup_game</find>
+      <find>empt</find>
+      <find>empty</find>
+      <find>take</find>
     </findStrings>
     <replaceStrings>
       <replace>game.board</replace>
@@ -165,16 +176,17 @@
         <option value="$PROJECT_DIR$/client_graphic.py" />
         <option value="$PROJECT_DIR$/venv2/server_graphic2.py" />
         <option value="$PROJECT_DIR$/ClientTurn.py" />
-        <option value="$PROJECT_DIR$/player.py" />
         <option value="$PROJECT_DIR$/game.py" />
+        <option value="$PROJECT_DIR$/player.py" />
+        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/server_graphic2.py" />
         <option value="$PROJECT_DIR$/client_graphic2.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="455" />
-    <option name="y" value="-8" />
+    <option name="x" value="516" />
+    <option name="y" value="214" />
     <option name="width" value="1345" />
     <option name="height" value="1103" />
   </component>
@@ -185,7 +197,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -202,6 +213,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -232,7 +244,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.client_graphic2">
+  <component name="RunManager" selected="Python.server_graphic2">
     <configuration name="cli" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true">
       <module name="Chameaux" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -394,11 +406,13 @@
       <workItem from="1572781624568" duration="6105000" />
       <workItem from="1572789528274" duration="1848000" />
       <workItem from="1572799614261" duration="1761000" />
+      <workItem from="1572969613514" duration="599000" />
+      <workItem from="1572977294981" duration="18379000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127910000" />
+    <option name="totallyTimeSpent" value="146888000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -410,15 +424,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48513514" visible="true" weight="0.11353944" />
-      <window_info id="Structure" order="1" sideWeight="0.51486486" side_tool="true" weight="0.11247335" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48418158" visible="true" weight="0.11567164" />
+      <window_info id="Structure" order="1" sideWeight="0.5158184" side_tool="true" visible="true" weight="0.11567164" />
       <window_info id="Favorites" order="2" sideWeight="0.50812566" side_tool="true" weight="0.104477614" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49307036" weight="0.19826652" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49307036" visible="true" weight="0.21235102" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.25135428" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -427,7 +441,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49840087" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50692964" side_tool="true" weight="0.20910075" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49946696" weight="0.16468039" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49840087" weight="0.32936078" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" sideWeight="0.4978678" weight="0.31960997" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -512,8 +526,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Chameaux$client_graphic.coverage" NAME="client_graphic Coverage Results" MODIFIED="1572432523505" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Chameaux$server_graphic2.coverage" NAME="server_graphic2 Coverage Results" MODIFIED="1572800357392" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Chameaux$client_graphic2.coverage" NAME="client_graphic2 Coverage Results" MODIFIED="1572800360794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Chameaux$server_graphic2.coverage" NAME="server_graphic2 Coverage Results" MODIFIED="1573031560285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Chameaux$client_graphic2.coverage" NAME="client_graphic2 Coverage Results" MODIFIED="1573031565316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Chameaux$main.coverage" NAME="main Coverage Results" MODIFIED="1572077520585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/camels$main.coverage" NAME="main Coverage Results" MODIFIED="1571753653856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Chameaux$main_graphic.coverage" NAME="main_graphic Coverage Results" MODIFIED="1572432519959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -587,36 +601,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/player.py">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/threading.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+        <state relative-caret-position="231">
+          <caret line="916" selection-start-line="916" selection-end-line="916" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/threading.py">
+    <entry file="file://$PROJECT_DIR$/player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17997">
-          <caret line="864" selection-start-line="864" selection-end-line="864" />
+        <state relative-caret-position="63">
+          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/server_graphic2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="76" column="18" selection-start-line="76" selection-start-column="18" selection-end-line="76" selection-end-column="18" />
+        <state relative-caret-position="226">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
           <folding>
             <element signature="e#15#35#0" expanded="true" />
+            <element signature="e#3093#3141#0" />
+            <element signature="e#3319#3414#0" />
+            <element signature="e#3444#4526#0" />
+            <element signature="e#4552#4706#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client_graphic2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="386" column="19" selection-start-line="386" selection-start-column="19" selection-end-line="386" selection-end-column="19" />
+        <state relative-caret-position="342">
+          <caret line="343" column="43" selection-start-line="343" selection-start-column="43" selection-end-line="343" selection-end-column="43" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#4939#5437#0" />
+            <element signature="e#5485#5727#0" />
+            <element signature="e#5761#6069#0" />
+            <element signature="e#6198#6598#0" />
+            <element signature="e#6236#6598#0" />
+            <element signature="e#6633#7485#0" />
+            <element signature="e#7523#7747#0" />
+            <element signature="e#7806#8244#0" />
+            <element signature="e#9464#9757#0" />
+            <element signature="e#9464#9509#1" />
+            <element signature="e#9539#9689#1" />
+            <element signature="e#9783#10691#0" />
           </folding>
         </state>
       </provider>

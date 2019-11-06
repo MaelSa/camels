@@ -285,6 +285,15 @@ def display_player_hand(hand):
         x += 100
 
 
+def fill_blank_player_hand(hand):
+    if len(hand) < 5:
+        x = 800
+        y = 580
+        for i in range(5 - len(hand)):
+            pygame.draw.rect(game.display, (71, 69, 209), (x ,y , 90, 140))
+            pygame.draw.rect(game.display, (71, 69, 209), (x, y - 5, 90 + 7, 140 + 7), 5)
+            x -= 100
+
 def display_opponent_hand(c):
     x = 400
     y = 0
@@ -300,23 +309,24 @@ def take_card():
         if card_state_board[i] == True:
             c = i
     new_send('prendre')
-    new_send(board[c])
+    new_send(str(c))
     #if not q2.empty():
     #    player_hand = q2.get()
-    player_hand.append(board[c])
-    board.remove(board[c])
+    board = receive_tab()
+    player_hand = receive_tab()
     while not q2.empty():
         q2.get()
     q2.put(player_hand)
+    q2.put(player_hand)
+
     while not q.empty():
         q.get()
+    q.put(board)
     q.put(board)
     turn.is_turn = False
 
 
 def sell_ressource():
-    if not q2.empty():
-        player_hand = q2.get()
     for i in range(len(card_state_hand)):
         if card_state_hand[i] == True:
             c = i
@@ -327,9 +337,11 @@ def sell_ressource():
     new_send(str(cb))
     for i in range(cb):
         player_hand.remove(res)
+    player_hand_rcv = receive_tab()
     while not q2.empty():
         q2.get()
-    q2.put(player_hand)
+    q2.put(player_hand_rcv)
+    fill_blank_player_hand(player_hand_rcv)
     turn.is_turn = False
 
 
@@ -348,6 +360,10 @@ def take_camels():
     q.put(board)
     """
     board = receive_tab()
+    print(f'in camels, we received board : {board}')
+    while not q.empty():
+        q.get()
+    q.put(board)
     q.put(board)
     turn.is_turn = False
 
@@ -359,36 +375,29 @@ def trade_cards():
     '''
     tab_take = []
     tab_give = []
-    #if not q.empty():
-    #    board = q.get()
-    #if not q2.empty():
-    #    player_hand = q2.get()
     indexi = []
+    new_send('échanger')
     for i in range(len(card_state_hand)):
         if card_state_hand[i] == True:
-            tab_give.append(player_hand[i])
+            tab_give.append(str(i))
     for i in range(len(card_state_board)):
         if card_state_board[i] == True:
-            tab_take.append(board[i])
-    for i in tab_give:
-        player_hand.remove(i)
-        board.append(i)
-    for i in tab_take:
-        board.remove(i)
-        player_hand.append(i)
-    print("were here")
-    q.put(board)
-    print('ok1')
-    q2.put(player_hand)
-    print('ok2')
+            tab_take.append(str(i))
+
     send_tab(tab_give)
-    print(tab_give)
-    print('ok3')
-    print(tab_take)
     send_tab(tab_take)
-    print('and there')
-    new_send(str(nb_selected_camels))
-    print(board)
+    new_send(str(0))
+    board = receive_tab()
+    player_hand = receive_tab()
+    print(f'we received board : {board} and {player_hand}')
+    while not q.empty():
+        q.get()
+    q.put(board)
+    q.put(board)
+    while not q2.empty():
+        q.get()
+    q2.put(player_hand)
+    q2.put(player_hand)
     turn.is_turn = False
 
 
@@ -407,15 +416,18 @@ def main_thread(board, q, q2, player_hand):
     game.display.fill((71, 69, 209))
 
     crashed = False
+    cmp = 0
     while not crashed:
         if not q2.empty():
             player_hand = q2.get()
         else:
             q2.put(player_hand)
-        while not q.empty():
+        if not q.empty():
             board = q.get()
+        while not q.empty():
+            q.get()
         q.put(board)
-        #q.put(board)
+        q.put(board)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 crashed = True
@@ -424,6 +436,7 @@ def main_thread(board, q, q2, player_hand):
         else:
             display_button_not_turn()
         display_camels(0, 0)
+
         display_board(board)
         display_player_hand(player_hand)
         display_opponent_hand(5)
@@ -443,12 +456,14 @@ def side_thread(board, q, q2, player_hand):
     end = False
     while not end:
         if turn.is_turn:
+            print('Notre tour')
             board = receive_tab()
-            while not q.empty:
+            print(f'received board : {board}')
+            while not q.empty():
                 q.get()
             q.put(board)
             #player_hand = receive_tab()
-        end2 = True
+        end2 = turn.is_turn
         while end2:
             end2 = turn.is_turn
             time.sleep(0.1)
@@ -456,27 +471,34 @@ def side_thread(board, q, q2, player_hand):
         if game.display != None:
             reset_select()
         if not turn.is_turn:
+            print('Not our turn')
             s = receive_tab()
+            print(f'We received : {s}')
             if s[0] == 'votre':
                 turn.is_turn = True
             else:
                 board = s
-                while not q.empty:
+                while not q.empty():
                     q.get()
+                q.put(board)
                 q.put(board)
             #player_hand = receive_tab()
         while not turn.is_turn:
             s = new_recv()
+            print(f'We received : {s}')
             if (s == 'votre'):
                 turn.is_turn = True
             else:
-                while not q.empty:
+                while not q.empty():
                     q.get()
                 q.put(board)
 
-
+"""
 first_window()
+
 new_send(player_name[0])
+"""
+new_send('Ma')
 
 t = new_recv()
 if t == '1':

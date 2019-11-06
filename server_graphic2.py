@@ -59,6 +59,8 @@ def new_buy_ressource_g(player, ressource, nb):
     for i in range(count):
         s = ressources[ressource].pop()
         player.add_score(s)
+        player.hand_str.remove(ressource)
+    send_tab(player.hand_str, player.socket)
     if len(bonus[count]) >= 1:
         player.add_score(bonus[count].pop())
 
@@ -71,20 +73,40 @@ def end_turn():
 
 
 def new_trade_g(player):
+    board = q.get()
+    print(f'board before trade : {board}')
+    print(f'player hand before trade : {player.hand_str}')
     tab_give = receive_tab(player.socket)
     print(tab_give)
     tab_take = receive_tab(player.socket)
     print(tab_take)
     nb_camels_trade = int(new_recv(player.socket))
+    tab_give_inter = []
+    tab_take_inter = []
     for t in tab_give:
-        player.hand_str.remove(t)
-        board.append(t)
+        tab_give_inter.append(player.hand_str[int(t)])
+
     for t in tab_take:
-        player.hand_str.append(t)
+
+        tab_take_inter.append(board[int(t)])
+    for t in tab_give_inter:
+        player.hand_str.remove(t)
+    for t in tab_take_inter:
         board.remove(t)
+    for t in tab_give_inter:
+        board.append(t)
+    for t in tab_take_inter:
+        player.hand_str.append(t)
+
+    print(f'board after trade : {board}')
+    print(f'player hand after trade : {player.hand_str}')
     player.nb_camel -= nb_camels_trade
+    print(f'were sending {board} and {player.hand_str}')
+    send_tab(board, player.socket)
+    send_tab(player.hand_str, player.socket)
+    while not q.empty():
+        q.get()
     q.put(board)
-    print(board)
     player.is_turn = False
 
 
@@ -95,6 +117,7 @@ def new_take_camels_g(player):
         board.remove('chameau')
     fill_board()
     send_tab(board, player.socket)
+    send_tab(board, player.other_player.socket)
     while not q.empty():
         q.get()
     q.put(board)
@@ -103,13 +126,22 @@ def new_take_camels_g(player):
 
 def new_turn_g(player):
     board = q.get()
+    print(f'got board : {board}')
+    q.put(board)
     print('waiting for a choice')
     choice = new_recv(player.socket)
     print(f'choice : {choice}')
     if choice == 'prendre':
-        taken_card = new_recv(player.socket)
-        player.take_card(taken_card)
-        board.remove(taken_card)
+        nb_taken_card = int(new_recv(player.socket))
+        player.take_card(board[nb_taken_card])
+        board.remove(board[nb_taken_card])
+        fill_board()
+        while not q.empty():
+            q.get()
+        q.put(board)
+        q.put(board)
+        send_tab(board, player.socket)
+        send_tab(player.hand_str, player.socket)
         print('success take')
     elif choice == 'vendre':
         res = new_recv(player.socket)
@@ -123,7 +155,11 @@ def new_turn_g(player):
         new_trade_g(player)
         print('success trade')
     player.is_turn = False
+    while not q.empty():
+        q.get()
     q.put(board)
+    q.put(board)
+
 
 def send_tab(tab, socket):
     str = ''
@@ -191,7 +227,12 @@ def deal_hand(player):
 def setup_game():
     shuffle_deck()
     shuffle_bonus()
+    for i in range(3):
+        deck.remove('chameau')
+        board.append('chameau')
     fill_board()
+    q.put(board)
+    q.put(board)
 
 
 def main_thread(player, q):
@@ -200,7 +241,9 @@ def main_thread(player, q):
     send_tab(player.hand_str, player.socket)
     q.put(board)
     while not end_game():
+        print('loopy loop')
         board = q.get()
+        print(board)
         send_tab(board, player.socket)
         #send_tab(player.hand_str, player.socket)
         if player.is_turn:
@@ -234,8 +277,7 @@ def new_game():
     setup_game()
     deal_hand(joueur1)
     deal_hand(joueur2)
-    q.put(board)
-    q.put(board)
+
     joueur1.is_turn = True
     joueur2.is_turn = False
     new_send(joueur1.socket, '1')
