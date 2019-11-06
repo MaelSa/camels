@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ae312f2d-85d3-4bda-9583-911181d23c58" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_graphic2.py" beforeDir="false" afterPath="$PROJECT_DIR$/client_graphic2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_graphic2.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_graphic2.py" afterDir="false" />
-    </list>
+    <list default="true" id="ae312f2d-85d3-4bda-9583-911181d23c58" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,8 +59,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server_graphic2.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="226">
-                  <caret line="61" selection-start-line="61" selection-end-line="61" />
+                <state relative-caret-position="331">
+                  <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
                   <folding>
                     <element signature="e#15#35#0" expanded="true" />
                     <element signature="e#3093#3141#0" />
@@ -93,8 +88,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client_graphic2.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="342">
-                  <caret line="343" column="43" selection-start-line="343" selection-start-column="43" selection-end-line="343" selection-end-column="43" />
+                <state relative-caret-position="321">
+                  <caret line="342" column="27" lean-forward="true" selection-start-line="342" selection-start-column="27" selection-end-line="342" selection-end-column="27" />
                   <folding>
                     <element signature="e#0#13#0" expanded="true" />
                     <element signature="e#4939#5437#0" />
@@ -407,12 +402,12 @@
       <workItem from="1572789528274" duration="1848000" />
       <workItem from="1572799614261" duration="1761000" />
       <workItem from="1572969613514" duration="599000" />
-      <workItem from="1572977294981" duration="18379000" />
+      <workItem from="1572977294981" duration="19115000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146888000" />
+    <option name="totallyTimeSpent" value="147624000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -424,15 +419,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48418158" visible="true" weight="0.11567164" />
-      <window_info id="Structure" order="1" sideWeight="0.5158184" side_tool="true" visible="true" weight="0.11567164" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48429036" visible="true" weight="0.11567164" />
+      <window_info id="Structure" order="1" sideWeight="0.51570964" side_tool="true" visible="true" weight="0.11567164" />
       <window_info id="Favorites" order="2" sideWeight="0.50812566" side_tool="true" weight="0.104477614" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49307036" visible="true" weight="0.21235102" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49307036" weight="0.21235102" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.25135428" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -618,24 +612,10 @@
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/server_graphic2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
-          <folding>
-            <element signature="e#15#35#0" expanded="true" />
-            <element signature="e#3093#3141#0" />
-            <element signature="e#3319#3414#0" />
-            <element signature="e#3444#4526#0" />
-            <element signature="e#4552#4706#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client_graphic2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="343" column="43" selection-start-line="343" selection-start-column="43" selection-end-line="343" selection-end-column="43" />
+        <state relative-caret-position="321">
+          <caret line="342" column="27" lean-forward="true" selection-start-line="342" selection-start-column="27" selection-end-line="342" selection-end-column="27" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
             <element signature="e#4939#5437#0" />
@@ -650,6 +630,20 @@
             <element signature="e#9464#9509#1" />
             <element signature="e#9539#9689#1" />
             <element signature="e#9783#10691#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server_graphic2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+          <folding>
+            <element signature="e#15#35#0" expanded="true" />
+            <element signature="e#3093#3141#0" />
+            <element signature="e#3319#3414#0" />
+            <element signature="e#3444#4526#0" />
+            <element signature="e#4552#4706#0" />
           </folding>
         </state>
       </provider>
