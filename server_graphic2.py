@@ -65,6 +65,7 @@ def new_buy_ressource_g(player, ressource, nb):
         player.add_score(bonus[count].pop())
 
 
+
 def end_turn():
     if len(board) < 5:
         for i in range(0, 5-len(board)):
@@ -146,7 +147,9 @@ def new_turn_g(player):
     elif choice == 'vendre':
         res = new_recv(player.socket)
         nb = int(new_recv(player.socket))
+        print(f'we wanna sell {res} in quantity {nb}')
         new_buy_ressource_g(player, res, nb)
+        new_send(player.socket, str(player.score))
         print('success buy')
     elif choice == 'chameaux':
         new_take_camels_g(player)

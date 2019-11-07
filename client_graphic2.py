@@ -72,7 +72,6 @@ def first_window():
     txt.grid(column=1, row=0)
     btn = Button(window, text="Valider", command=partial(validate, lbl, txt, window))
     btn.grid(column=1, row=2)
-
     window.mainloop()
 
 
@@ -97,15 +96,18 @@ def possible_camels_func():
 
 
 def possible_sell_func():
+    valuable_ressources = ['or', 'diamants', 'argent']
     possible = False
     if card_state_hand.count(True) > 1:
         possible = True
         for i in range(len(player_hand)):
             if card_state_hand[i] == True:
                 res = player_hand[i]
-        for i in range(len(player_hand)):
-            if card_state_hand[i] == True and player_hand[i] != res:
-                possible = False
+        if res in valuable_ressources:
+            for i in range(len(player_hand)):
+                if card_state_hand[i] == True and player_hand[i] != res:
+                    possible = False
+
     return possible
 
 
@@ -201,6 +203,14 @@ def button(msg, x, y, w, h, ic, ac, action=None):
     game.display.blit(textSurf, textRect)
 
 
+def display_score(score):
+    pygame.draw.rect(game.display,  (71, 69, 209), (150, 280, 60, 40))
+    smallText = pygame.font.SysFont(None, 30)
+    textSurf, textRect = text_objects('votre score: '+ str(score), smallText)
+    textRect.center = (100, 300)
+    game.display.blit(textSurf, textRect)
+
+
 def disabled_button(msg, x, y, w, h, c):
     pygame.draw.rect(game.display, c, (x, y, w, h))
     smallText = pygame.font.SysFont(None, 20)
@@ -238,6 +248,13 @@ def remove_selected_camels():
 
 
 def display_buttons_turn():
+    if not q2.empty():
+        player_hand = q2.get()
+        while not q2.empty():
+            q2.get()
+        q2.put(player_hand)
+        q2.put(player_hand)
+
     if possible_camels_func():
         button("Chameaux", 1000, 400, 100, 30, white, green, action=take_camels)
     else:
@@ -289,10 +306,14 @@ def fill_blank_player_hand(hand):
     if len(hand) < 5:
         x = 800
         y = 580
+        """
         for i in range(5 - len(hand)):
             pygame.draw.rect(game.display, (71, 69, 209), (x ,y , 90, 140))
             pygame.draw.rect(game.display, (71, 69, 209), (x, y - 5, 90 + 7, 140 + 7), 5)
             x -= 100
+        """
+        pygame.draw.rect(game.display, (71, 69, 209), (400, 580, 600, 150))
+
 
 def display_opponent_hand(c):
     x = 400
@@ -327,21 +348,23 @@ def take_card():
 
 
 def sell_ressource():
+    tab_coord = []
     for i in range(len(card_state_hand)):
         if card_state_hand[i] == True:
             c = i
+            tab_coord.append(i)
     cb = card_state_hand.count(True)
     res = player_hand[c]
     new_send('vendre')
     new_send(res)
     new_send(str(cb))
-    for i in range(cb):
-        player_hand.remove(res)
     player_hand_rcv = receive_tab()
     while not q2.empty():
         q2.get()
     q2.put(player_hand_rcv)
     fill_blank_player_hand(player_hand_rcv)
+    score = int(new_recv())
+    display_score(score)
     turn.is_turn = False
 
 
@@ -414,6 +437,7 @@ def main_thread(board, q, q2, player_hand):
     gameDisplay = pygame.display.set_mode((display_width, display_height))
     game.display = gameDisplay
     game.display.fill((71, 69, 209))
+    display_score(0)
 
     crashed = False
     cmp = 0
@@ -436,7 +460,6 @@ def main_thread(board, q, q2, player_hand):
         else:
             display_button_not_turn()
         display_camels(0, 0)
-
         display_board(board)
         display_player_hand(player_hand)
         display_opponent_hand(5)
@@ -493,13 +516,13 @@ def side_thread(board, q, q2, player_hand):
                     q.get()
                 q.put(board)
 
-"""
+
 first_window()
 
 new_send(player_name[0])
 """
 new_send('Ma')
-
+"""
 t = new_recv()
 if t == '1':
     turn.is_turn = True
